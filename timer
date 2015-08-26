@@ -1,0 +1,38 @@
+/**
+ *  timer library contains three components, they are "timer, progress_timer" and "progress_display".
+ *  Below will be detailed.
+ */
+
+
+/***************************************************************************/
+/* header and namespace
+/***************************************************************************/
+#include <boost/timer.hpp>  
+#include <boost/progress.hpp>  
+#include <iostream>  
+#include <sstream>  
+#include <fstream>  
+#include <vector>  
+
+using namespace std;   
+using namespace boost; 
+
+ 
+/***************************************************************************/
+/* timer
+/***************************************************************************/
+void timer_test() {
+    // timer 处理示例，timer 以处理几百小时之内，对精确度不高的时间统计。  
+    timer t;  
+    cout << "最大处理时间：" << t.elapsed_max() / 3600 << " h" << endl;  
+    cout << "最小处理时间：" << t.elapsed_min() << " s" << endl;  
+    cout << "已经逝去时间：" << t.elapsed() << " s" << endl;  
+    system("pause");  
+    cout << "暂停逝去时间:" << t.elapsed() << " s" << endl;  
+    t.restart();  
+    cout << "重启逝去时间:" << t.elapsed() << " s" << endl;  
+    system("pause");  
+    cout << "暂停逝去时间:" << t.elapsed() << " s" << endl;  
+}
+ 
+ 
