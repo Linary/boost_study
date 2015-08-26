@@ -22,17 +22,17 @@ using namespace boost;
 /* timer
 /***************************************************************************/
 void timer_test() {
-    // timer å¤„ç†ç¤ºä¾‹ï¼Œtimer ä»¥å¤„ç†å‡ ç™¾å°æ—¶ä¹‹å†…ï¼Œå¯¹ç²¾ç¡®åº¦ä¸é«˜çš„æ—¶é—´ç»Ÿè®¡ã€‚  
+    // timer ´¦ÀíÊ¾Àı£¬timer ÒÔ´¦Àí¼¸°ÙĞ¡Ê±Ö®ÄÚ£¬¶Ô¾«È·¶È²»¸ßµÄÊ±¼äÍ³¼Æ¡£  
     timer t;  
-    cout << "æœ€å¤§å¤„ç†æ—¶é—´ï¼š" << t.elapsed_max() / 3600 << " h" << endl;  
-    cout << "æœ€å°å¤„ç†æ—¶é—´ï¼š" << t.elapsed_min() << " s" << endl;  
-    cout << "å·²ç»é€å»æ—¶é—´ï¼š" << t.elapsed() << " s" << endl;  
+    cout << "×î´ó´¦ÀíÊ±¼ä£º" << t.elapsed_max() / 3600 << " h" << endl;  
+    cout << "×îĞ¡´¦ÀíÊ±¼ä£º" << t.elapsed_min() << " s" << endl;  
+    cout << "ÒÑ¾­ÊÅÈ¥Ê±¼ä£º" << t.elapsed() << " s" << endl;  
     system("pause");  
-    cout << "æš‚åœé€å»æ—¶é—´:" << t.elapsed() << " s" << endl;  
+    cout << "ÔİÍ£ÊÅÈ¥Ê±¼ä:" << t.elapsed() << " s" << endl;  
     t.restart();  
-    cout << "é‡å¯é€å»æ—¶é—´:" << t.elapsed() << " s" << endl;  
+    cout << "ÖØÆôÊÅÈ¥Ê±¼ä:" << t.elapsed() << " s" << endl;  
     system("pause");  
-    cout << "æš‚åœé€å»æ—¶é—´:" << t.elapsed() << " s" << endl;  
+    cout << "ÔİÍ£ÊÅÈ¥Ê±¼ä:" << t.elapsed() << " s" << endl;  
 }
  
  
@@ -40,62 +40,62 @@ void timer_test() {
 /*  progress_timer
 /***************************************************************************/
 void progress_timer_test() {
-    // ç¤ºä¾‹1
-    // progress_timer ç»§æ‰¿äº† timer çš„å…¨éƒ¨èƒ½åŠ› 
+    // Ê¾Àı1
+    // progress_timer ¼Ì³ĞÁË timer µÄÈ«²¿ÄÜÁ¦ 
     progress_timer t;    
-    // æ‰‹åŠ¨æ‰“å°å‡ºæµé€çš„æ—¶é—´
+    // ÊÖ¶¯´òÓ¡³öÁ÷ÊÅµÄÊ±¼ä
     cout << "progress_timer: " << t.elapsed() << endl;   
 
-    // ç¤ºä¾‹2 
-    // progress_timer ä¼šåœ¨è¿™é‡Œææ„ï¼Œè‡ªåŠ¨è¾“å‡ºæ—¶é—´
+    // Ê¾Àı2 
+    // progress_timer »áÔÚÕâÀïÎö¹¹£¬×Ô¶¯Êä³öÊ±¼ä
     {  
         progress_timer t;  
     } 
       
-    // ç¤ºä¾‹3
-    // progress_timer è¾“å‡ºé‡å®šå‘è‡³ stringstream ä¸­   
+    // Ê¾Àı3
+    // progress_timer Êä³öÖØ¶¨ÏòÖÁ stringstream ÖĞ   
     stringstream ss;  
     {  
-        // ä½¿ progress_timer è¾“å‡ºåˆ° ss
+        // Ê¹ progress_timer Êä³öµ½ ss
         progress_timer t(ss);  
     }  
     cout << "ss: " << ss.str() << endl;
 }
 
 /***************************************************************************/
-/*  æ‰©å±•è®¡æ—¶ç²¾åº¦
-/*  progress_timer çš„ç²¾åº¦åªæœ‰å°æ•°ç‚¹åä¸¤ä½
-/*  å¦‚æœæƒ³æœ‰æ›´é«˜ç²¾åº¦çš„è®¡æ—¶å™¨ï¼Œå¯ä»¥ä»¿ç…§ progress_timer è‡ªå·±å†™ä¸€ä¸ª
+/*  À©Õ¹¼ÆÊ±¾«¶È
+/*  progress_timer µÄ¾«¶ÈÖ»ÓĞĞ¡ÊıµãºóÁ½Î»
+/*  Èç¹ûÏëÓĞ¸ü¸ß¾«¶ÈµÄ¼ÆÊ±Æ÷£¬¿ÉÒÔ·ÂÕÕ progress_timer ×Ô¼ºĞ´Ò»¸ö
 /***************************************************************************/
 template <int N = 2>
 class new_progress_timer : public boost::timer {
 public:
     new_progress_timer(std::ostream & os = std::cout) : m_os(os) {
-        // è¿™é‡Œåº”è¯¥ä½¿ç”¨é™æ€æ–­è¨€çš„
+        // ÕâÀïÓ¦¸ÃÊ¹ÓÃ¾²Ì¬¶ÏÑÔµÄ
         assert(N >= 0 && N <= 10);
     }
 
     ~new_progress_timer() {
         try {
-            // ä¿å­˜æµçš„çŠ¶æ€
+            // ±£´æÁ÷µÄ×´Ì¬
             std::istream::fmtflags old_flags = m_os.setf(std::istream::fixed,
                 std::istream::floatfield);
             std::streamsize old_prec = m_os.precision(N);
 
-            // è¾“å‡ºæ—¶é—´
+            // Êä³öÊ±¼ä
             m_os << elapsed() << " s" << std::endl;
 
-            // æ¢å¤æµçš„çŠ¶æ€
+            // »Ö¸´Á÷µÄ×´Ì¬
             m_os.flags(old_flags);
             m_os.precision(old_prec);
-        } catch (...) {}    // ææ„å‡½æ•°ç»ä¸èƒ½æŠ›å‡ºå¼‚å¸¸
+        } catch (...) {}    // Îö¹¹º¯Êı¾ø²»ÄÜÅ×³öÒì³£
     }
 private:
     std::ostream m_os;
 };
 
 /** 
- *  ä½¿ç”¨æ¨¡æ¿ç‰¹åŒ–
+ *  Ê¹ÓÃÄ£°åÌØ»¯
  */
 template<>
 class new_progress_timer<2> : public boost::progress_timer {}; 
@@ -103,22 +103,22 @@ class new_progress_timer<2> : public boost::progress_timer {};
 
 /***************************************************************************/
 /*  progress_display
-/*  æ˜¾ç¤ºæ‰§è¡Œè¿›åº¦
+/*  ÏÔÊ¾Ö´ĞĞ½ø¶È
 /***************************************************************************/
 void progress_display_test() {
-    // å¯åœ¨æ§åˆ¶å°æ˜¾ç¤ºç¨‹åºçš„æ‰§è¡Œè¿›åº¦ï¼Œä½†æ˜¯æ— æ³•æŠŠè¿›åº¦æ˜¾ç¤ºè¾“å‡ºä¸ç¨‹åºçš„è¾“å‡ºåˆ†ç¦» 
+    // ¿ÉÔÚ¿ØÖÆÌ¨ÏÔÊ¾³ÌĞòµÄÖ´ĞĞ½ø¶È£¬µ«ÊÇÎŞ·¨°Ñ½ø¶ÈÏÔÊ¾Êä³öÓë³ÌĞòµÄÊä³ö·ÖÀë 
     vector<string> v(100);  
     ofstream fs("c:/test.txt");  
-    // åˆå§‹åŒ–è¿›åº¦çš„åŸºæ•°ï¼Œä¹Ÿå°±æ˜¯æ€»è¿›åº¦
+    // ³õÊ¼»¯½ø¶ÈµÄ»ùÊı£¬Ò²¾ÍÊÇ×Ü½ø¶È
     progress_display pd(v.size());  
       
     for (auto pos = v.begin(); pos != v.end(); ++pos) {  
         fs << *pos << endl;  
-        // æ›´æ–°è¿›åº¦æ˜¾ç¤º
+        // ¸üĞÂ½ø¶ÈÏÔÊ¾
         ++pd;  
     }  
 }
-// è¾“å‡ºç¤ºä¾‹
+// Êä³öÊ¾Àı
 // 0%   10   20   30   40   50   60   70   80   90   100% 
 // |----|----|----|----|----|----|----|----|----|----| 
 // ***************************************************
